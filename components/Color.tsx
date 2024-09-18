@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+/*import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, RefreshControl } from 'react-native';
 import { stylesColor } from "./styles";
 
@@ -44,4 +44,15 @@ const ColorsScreen = () => {
   );
 };
 
-export default ColorsScreen;
+export default ColorsScreen;*/
+// screens/HomeScreen.js
+import React from 'react';
+import { View, Text } from 'react-native';
+
+export default function ColorsScreen() {
+  return (
+    <View>
+      <Text>¡Bienvenido a la página de inicio!</Text>
+    </View>
+  );
+}

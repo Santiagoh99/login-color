@@ -1,39 +1,39 @@
-import React from 'react';
-import { Pressable,Text } from 'react-native';
-import { useAuthRequest, DiscoveryDocument } from 'expo-auth-session';
-import { makeRedirectUri } from 'expo-auth-session';
-import { useNavigation } from '@react-navigation/native'; 
+import React, { useEffect } from 'react';
+import { Pressable, Text, Alert } from 'react-native';
+import * as Google from "expo-auth-session/providers/google";
+import * as WebBrowser from "expo-web-browser";
 import { stylesGoogle } from "./styles";
 
-const discovery: DiscoveryDocument = {
-  authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
-  tokenEndpoint: 'https://oauth2.googleapis.com/token',
-  revocationEndpoint: 'https://oauth2.googleapis.com/revoke',
-};
+const ios = "139043375319-d6d8uu5f0tjoc8oques7795dreoqohbp.apps.googleusercontent.com"
+const android = "139043375319-o9l2bkhv15qmmsibverahhtimd53b1s3.apps.googleusercontent.com"
+const webClientId = "139043375319-4uu55gou4bhc6v73o2l46bfe450qi04l.apps.googleusercontent.com"
 
-export default function LoginGoogle() {
-  const navigation = useNavigation();
-  const [request, response, promptAsync] = useAuthRequest(
-    {
-      clientId: '139043375319-4uu55gou4bhc6v73o2l46bfe450qi04l.apps.googleusercontent.com', 
-      redirectUri: makeRedirectUri({
-        //useProxy: true,
-      }),
-      scopes: ['profile', 'email'],
-    },
-    discovery
-  );
+WebBrowser.maybeCompleteAuthSession();
 
-  React.useEffect(() => {
+export default function LoginGoogle({ navigation }: { navigation: any }) {
+  const config = {
+    ios,
+    android,
+    webClientId
+  }
+
+  const [request, response, promptAsync] = Google.useAuthRequest(config);
+
+  const handleToken = () => {
     if (response?.type === 'success') {
       const { code } = response.params;
       navigation.navigate('Color');
     }
-  }, [response, navigation]);
+  }
+
+  useEffect(() => {
+    handleToken();
+  }, [response])
+
 
   return (
-    <Pressable style={stylesGoogle.button} onPress={() => {promptAsync();}} disabled={!request}>
-       <Text style={stylesGoogle.buttonText}>Iniciar sesión con Google</Text>
+    <Pressable style={stylesGoogle.button} onPress={() => { promptAsync(); }} disabled={!request}>
+      <Text style={stylesGoogle.buttonText}>Iniciar sesión con Google</Text>
     </Pressable>
   );
 }

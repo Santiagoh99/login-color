@@ -5,19 +5,19 @@ import GoogleLogin from './authentication/Google';
 import AppleLogin from './authentication/Apple';
 import MagicLinkLogin from './authentication/Magic';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }: { navigation: any }) => {
   return (
     <View style={stylesLogin.container}>
       <Text style={stylesLogin.title}>Iniciar sesión</Text>
 
       {/* Botón para iniciar sesión con Google */}
-      <GoogleLogin />
+      <GoogleLogin navigation={navigation}/>
 
-      {/* Botón para iniciar sesión con Apple */}
-      <AppleLogin />
+      {/* Botón para iniciar sesión con Apple 
+      <AppleLogin />*/}
 
-      {/* Formulario para iniciar sesión con Magic Link */}
-      <MagicLinkLogin />
+      {/* Formulario para iniciar sesión con Magic Link 
+      <MagicLinkLogin />*/}
     </View>
   );
 };

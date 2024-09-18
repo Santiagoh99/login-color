@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "login-color",
+    "name": "loginColor",
     "slug": "login-color",
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,9 +13,11 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.santiago.loginColor"
     },
     "android": {
+      "package": "com.santiago.loginColor",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -22,6 +25,14 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "redirectUri": "https://auth.expo.io/@santiago/login-color",
+      "eas": {
+        "projectId": "2333e2d8-d8ba-4122-a63b-eaab64d44fc4"
+      }
+    },
+    "owner": "santiagoh99",
+    "scheme":"loginColor"
   }
 }
