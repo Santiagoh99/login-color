@@ -1,11 +1,29 @@
 import React from 'react';
 import { Pressable, Text } from 'react-native';
+import * as AppleAuthentication from "expo-apple-authentication";
 import { stylesApple } from "./styles";
 
-const AppleLogin = () => {
-  const handleAppleLogin = () => {
-    // Implementar la lógica para iniciar sesión con Apple
-    console.log('Iniciar sesión con Apple');
+export default function LoginApple({ navigation }: { navigation: any }) {
+  const handleAppleLogin = async () => {
+    try {
+      const credential = await AppleAuthentication.signInAsync({
+        requestedScopes: [
+          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+          AppleAuthentication.AppleAuthenticationScope.EMAIL,
+        ],
+      });
+      if (credential) {
+        navigation.navigate('Color');
+      }
+      console.log({
+        id: credential.identityToken,
+        authorization_code: credential.authorizationCode,
+      });
+    } catch (e) {
+      if (e.code === "ERR_REQUEST_CANCELED") {
+        console.log("Error no esperado");
+      }
+    }
   };
 
   return (
@@ -14,5 +32,3 @@ const AppleLogin = () => {
     </Pressable>
   );
 };
-
-export default AppleLogin;

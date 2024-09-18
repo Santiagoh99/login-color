@@ -4,16 +4,16 @@ import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
 import { stylesGoogle } from "./styles";
 
-const ios = "139043375319-d6d8uu5f0tjoc8oques7795dreoqohbp.apps.googleusercontent.com"
-const android = "139043375319-o9l2bkhv15qmmsibverahhtimd53b1s3.apps.googleusercontent.com"
+const iosClientId = "139043375319-d6d8uu5f0tjoc8oques7795dreoqohbp.apps.googleusercontent.com"
+const androidClientId = "139043375319-o9l2bkhv15qmmsibverahhtimd53b1s3.apps.googleusercontent.com"
 const webClientId = "139043375319-4uu55gou4bhc6v73o2l46bfe450qi04l.apps.googleusercontent.com"
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginGoogle({ navigation }: { navigation: any }) {
   const config = {
-    ios,
-    android,
+    iosClientId,
+    androidClientId,
     webClientId
   }
 
@@ -23,6 +23,8 @@ export default function LoginGoogle({ navigation }: { navigation: any }) {
     if (response?.type === 'success') {
       const { code } = response.params;
       navigation.navigate('Color');
+    } else if (response?.type === 'error') {
+      Alert.alert('Login Error', 'error en inicio de sesión');
     }
   }
 

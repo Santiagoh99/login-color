@@ -13,11 +13,11 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
       {/* Botón para iniciar sesión con Google */}
       <GoogleLogin navigation={navigation}/>
 
-      {/* Botón para iniciar sesión con Apple 
-      <AppleLogin />*/}
+      {/* Botón para iniciar sesión con Apple */}
+      <AppleLogin navigation={navigation}/>
 
       {/* Formulario para iniciar sesión con Magic Link 
-      <MagicLinkLogin />*/}
+      <MagicLinkLogin navigation={navigation}/>*/}
     </View>
   );
 };

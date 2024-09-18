@@ -2,7 +2,11 @@
   "expo": {
     "name": "loginColor",
     "slug": "login-color",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -33,6 +37,7 @@
       }
     },
     "owner": "santiagoh99",
-    "scheme":"loginColor"
+    "scheme": "loginColor",
+    "plugins": ["expo-apple-authentication"]
   }
 }
