@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, Text } from 'react-native';
+import { Pressable, Text,Alert } from 'react-native';
 import * as AppleAuthentication from "expo-apple-authentication";
 import { stylesApple } from "./styles";
 
@@ -21,7 +21,7 @@ export default function LoginApple({ navigation }: { navigation: any }) {
       });
     } catch (e) {
       if (e.code === "ERR_REQUEST_CANCELED") {
-        console.log("Error no esperado");
+         Alert.alert('Error',"Error no esperado");
       }
     }
   };
