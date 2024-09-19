@@ -1,8 +1,8 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import Login from './components/Login';
-import Colors from './components/Color';
+import Login from './components/login';
+import Colors from './components/color';
 import MagicWelcome from './components/welcome/InitMagic'
 
 const Stack = createNativeStackNavigator();
