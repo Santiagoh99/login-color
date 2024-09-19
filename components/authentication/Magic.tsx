@@ -1,13 +1,46 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Pressable } from 'react-native';
+import { View, Text, TextInput, Alert, Pressable } from 'react-native';
 import { stylesMagic } from "./styles";
+import { getAuth, sendSignInLinkToEmail } from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from "./firebase";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const MagicLinkLogin = () => {
-  const [email, setEmail] = useState('');
 
-  const handleMagicLink = () => {
-    // Implementar lógica para enviar Magic Link al email
-    console.log(`Enviando Magic Link a ${email}`);
+export default function MagicLinkLogin({ navigation }: { navigation: any }) {
+  const [email, setEmail] = useState<string>('');
+  const [loading, setLoading] = useState(false);
+
+  const app = initializeApp(firebaseConfig)
+  const auth = getAuth(app)
+
+  const sendMagicLink = async () => {
+    const actionCodeSettings = {
+      url: 'http://localhost:8081/Welcome',
+      handleCodeInApp: true,
+      //iOS: {
+      //  bundleId: 'com.santiago.loginColor'
+      //},
+      //android: {
+      //  packageName: 'com.santiago.loginColor',
+      //  installApp: true,
+      //  minimumVersion: '12'
+      //},
+      //dynamicLinkDomain: 'your-app.page.link' 
+    }
+
+    setLoading(true);
+    try {
+      await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+      await AsyncStorage.setItem('emailForSignIn', email);
+
+      Alert.alert('Magic link enviado', 'Por favor, revisa tu correo para iniciar sesión.');
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Error', 'Hubo un problema al enviar el enlace. Por favor, intenta de nuevo.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -16,14 +49,12 @@ const MagicLinkLogin = () => {
         style={stylesMagic.input}
         value={email}
         onChangeText={setEmail}
-        placeholder="Introduce tu correo"
-        inputMode="email" // Uso de inputMode en lugar de keyboardType
+        placeholder="Ingrese correo"
+        inputMode="email"
       />
-      <Pressable style={stylesMagic.button} onPress={handleMagicLink}>
+      <Pressable style={stylesMagic.button} onPress={sendMagicLink}>
         <Text style={stylesMagic.buttonText}>Enviar Magic Link</Text>
       </Pressable>
     </View>
   );
 };
-
-export default MagicLinkLogin;

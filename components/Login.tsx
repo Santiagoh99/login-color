@@ -9,15 +9,9 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
   return (
     <View style={stylesLogin.container}>
       <Text style={stylesLogin.title}>Iniciar sesión</Text>
-
-      {/* Botón para iniciar sesión con Google */}
       <GoogleLogin navigation={navigation}/>
-
-      {/* Botón para iniciar sesión con Apple */}
       <AppleLogin navigation={navigation}/>
-
-      {/* Formulario para iniciar sesión con Magic Link 
-      <MagicLinkLogin navigation={navigation}/>*/}
+      <MagicLinkLogin navigation={navigation}/>
     </View>
   );
 };
