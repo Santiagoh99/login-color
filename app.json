@@ -31,7 +31,7 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "redirectUri": "https://auth.expo.io/@santiago/login-color",
+      "redirectUri": "https://auth.expo.io/@santiagoh99/login-color",
       "eas": {
         "projectId": "2333e2d8-d8ba-4122-a63b-eaab64d44fc4"
       }

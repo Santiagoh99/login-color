@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Alert, Pressable } from 'react-native';
 import { stylesMagic } from "./styles";
-import { getAuth, sendSignInLinkToEmail } from "firebase/auth";
+import { getAuth, sendSignInLinkToEmail,setPersistence} from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "./firebase";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -14,19 +14,25 @@ export default function MagicLinkLogin({ navigation }: { navigation: any }) {
   const app = initializeApp(firebaseConfig)
   const auth = getAuth(app)
 
+  setPersistence(auth, {
+    type: 'LOCAL',
+  }).catch((error) => {
+    console.error('Error al establecer la persistencia:', error);
+  });
+
   const sendMagicLink = async () => {
     const actionCodeSettings = {
-      url: 'http://localhost:8081/Welcome',
+      url: 'https://auth.expo.io/@santiagoh99/login-color',
       handleCodeInApp: true,
-      //iOS: {
-      //  bundleId: 'com.santiago.loginColor'
-      //},
-      //android: {
-      //  packageName: 'com.santiago.loginColor',
-      //  installApp: true,
-      //  minimumVersion: '12'
-      //},
-      //dynamicLinkDomain: 'your-app.page.link' 
+      iOS: {
+        bundleId: 'com.santiago.loginColor'
+      },
+      android: {
+        packageName: 'com.santiago.loginColor',
+        installApp: true,
+        minimumVersion: '12'
+      },
+      dynamicLinkDomain: 'https://auth.expo.io/@santiagoh99/login-color' 
     }
 
     setLoading(true);

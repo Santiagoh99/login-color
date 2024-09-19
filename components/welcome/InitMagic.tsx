@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ActivityIndicator, Alert } from 'react-native';
 import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth';
 import { useNavigation } from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function MagicWelcome() {
@@ -24,8 +25,14 @@ export default function MagicWelcome() {
 
         try {
           await signInWithEmailLink(auth, email, url);
-          await AsyncStorage.removeItem('emailForSignIn'); // Limpia el almacenamiento
-          //navigation.navigate('Color');  Redirige a la pantalla principal
+          await AsyncStorage.removeItem('emailForSignIn');
+          
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 1,
+              routes: [{ name: 'Color' }],
+            })
+          );
         } catch (error) {
           console.error('Error al iniciar sesión:', error);
           Alert.alert('Error', 'No se pudo completar la autenticación.');
