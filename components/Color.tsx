@@ -1,58 +1,47 @@
-/*import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, RefreshControl } from 'react-native';
-import { stylesColor } from "./styles";
+import axios from 'axios';
+import { stylesColor } from './styles';
 
-const ColorsScreen = () => {
+export default function Colors() {
   const [colors, setColors] = useState([]);
-  const [refreshing, setRefreshing] = useState(false);
+
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const fetchColors = async () => {
     try {
-      const response = await fetch('https://www.colourlovers.com/api/colors?format=json');
-      const data = await response.json();
-      setColors(data);
+      const response = await axios.get('https://www.colourlovers.com/api/colors?format=json');//eliminar cors despues  https://cors-anywhere.herokuapp.com/
+      setColors(response.data);
     } catch (error) {
-      console.error(error);
+      console.error('Error al obtener colores:', error);
     }
+  };
+
+  const onRefresh = () => {
+    setIsRefreshing(true);
+    fetchColors().then(() => setIsRefreshing(false));
   };
 
   useEffect(() => {
     fetchColors();
   }, []);
 
-  const onRefresh = async () => {
-    setRefreshing(true);
-    await fetchColors();
-    setRefreshing(false);
-  };
+  const renderColorItem = ({ item }: { item: any }) => (
+    <View style={[stylesColor.colorItem, { backgroundColor: `#${item.hex}` }]}>
+      <Text style={stylesColor.colorName}>{item.title}</Text>
+    </View>
+  );
 
   return (
     <View style={stylesColor.container}>
       <FlatList
         data={colors}
-        keyExtractor={(item) => item.hex}
-        renderItem={({ item }) => (
-          <View style={[stylesColor.colorBox, { backgroundColor: `#${item.hex}` }]}>
-            <Text style={stylesColor.colorText}>{item.title}</Text>
-          </View>
-        )}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderColorItem}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
         }
       />
     </View>
   );
 };
-
-export default ColorsScreen;*/
-// screens/HomeScreen.js
-import React from 'react';
-import { View, Text } from 'react-native';
-
-export default function ColorsScreen() {
-  return (
-    <View>
-      <Text>¡Bienvenido a la página de inicio!</Text>
-    </View>
-  );
-}

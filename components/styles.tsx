@@ -14,19 +14,18 @@ export const stylesLogin = StyleSheet.create({
   }
 });
 
-export const stylesColor = StyleSheet.create({
+export const stylesColor =  StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
   },
-  colorBox: {
+  colorItem: {
     padding: 20,
     marginVertical: 8,
-    borderRadius: 10,
+    borderRadius: 8,
   },
-  colorText: {
+  colorName: {
     color: '#fff',
     fontWeight: 'bold',
-    textAlign: 'center',
   },
 });

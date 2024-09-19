@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Alert, Pressable } from 'react-native';
 import { stylesMagic } from "./styles";
-import { getAuth, sendSignInLinkToEmail,setPersistence} from "firebase/auth";
+import { getAuth, sendSignInLinkToEmail} from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "./firebase";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -13,12 +13,6 @@ export default function MagicLinkLogin({ navigation }: { navigation: any }) {
 
   const app = initializeApp(firebaseConfig)
   const auth = getAuth(app)
-
-  setPersistence(auth, {
-    type: 'LOCAL',
-  }).catch((error) => {
-    console.error('Error al establecer la persistencia:', error);
-  });
 
   const sendMagicLink = async () => {
     const actionCodeSettings = {

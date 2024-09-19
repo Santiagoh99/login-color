@@ -26,7 +26,7 @@ export default function MagicWelcome() {
         try {
           await signInWithEmailLink(auth, email, url);
           await AsyncStorage.removeItem('emailForSignIn');
-          
+
           navigation.dispatch(
             CommonActions.reset({
               index: 1,
