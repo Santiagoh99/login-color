@@ -26,8 +26,12 @@ export default function MagicLinkLogin({ navigation }: { navigation: any }) {
         installApp: true,
         minimumVersion: '12'
       },
-      dynamicLinkDomain: 'https://auth.expo.io/@santiagoh99/login-color' 
+      //dynamicLinkDomain: 'auth.expo.io's
     }
+
+    if (!email) {
+      console.error('Correo electrónico faltante.');
+    } 
 
     setLoading(true);
     try {
