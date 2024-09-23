@@ -9,12 +9,10 @@ export default function Colors() {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const fetchColors = async () => {
-    try {
-      const response = await axios.get('https://www.colourlovers.com/api/colors?format=json');//eliminar cors despues  https://cors-anywhere.herokuapp.com/
-      setColors(response.data);
-    } catch (error) {
-      console.error('Error al obtener colores:', error);
-    }
+  fetch('https://api.allorigins.win/get?url=https://www.colourlovers.com/api/colors?format=json')
+  .then(response => response.json())
+  .then(data => setColors(JSON.parse(data.contents)))
+  .catch(error => console.error('Error:', error));
   };
 
   const onRefresh = () => {

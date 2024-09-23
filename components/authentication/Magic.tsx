@@ -16,7 +16,7 @@ export default function MagicLinkLogin({ navigation }: { navigation: any }) {
 
   const sendMagicLink = async () => {
     const actionCodeSettings = {
-      url: 'https://auth.expo.io/@santiagoh99/login-color',
+      url: 'http://localhost:8081/Color',//'https://auth.expo.io/@santiagoh99/login-color',
       handleCodeInApp: true,
       iOS: {
         bundleId: 'com.santiago.loginColor'
@@ -26,7 +26,7 @@ export default function MagicLinkLogin({ navigation }: { navigation: any }) {
         installApp: true,
         minimumVersion: '12'
       },
-      //dynamicLinkDomain: 'auth.expo.io's
+     // dynamicLinkDomain: 'auth.expo.io's
     }
 
     if (!email) {
