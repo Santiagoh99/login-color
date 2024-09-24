@@ -23,18 +23,17 @@ export default function LoginGoogle({ navigation }: { navigation: any }) {
   }
 
   const [request, response, promptAsync] = Google.useAuthRequest(config);
-  console.log(request, response, promptAsync)
+ // console.log(request, response, promptAsync)
 
   const handleToken = () => {
     try {
-      if (response?.type === 'success') {
-        const { authentication } = response;
-        const token = authentication?.accessToken;
-        console.log(token)
+      if (response) {
+        //const token = authentication?.accessToken;
+        console.log(response)
         navigation.navigate('Color');
-      } else if (response?.type === 'error') {
-        Alert.alert('Login Error', 'error en inicio de sesión');
       }
+      console.log('data',response)
+      navigation.navigate('Color');
     } catch (error) {
       console.log(error)
       Alert.alert('Error', "Error no esperado");
