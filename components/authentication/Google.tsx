@@ -23,22 +23,26 @@ export default function LoginGoogle({ navigation }: { navigation: any }) {
   }
 
   const [request, response, promptAsync] = Google.useAuthRequest(config);
- // console.log(request, response, promptAsync)
 
   const handleToken = () => {
     try {
-      if (response) {
-        //const token = authentication?.accessToken;
-        console.log(response)
+      if (response?.type === 'success') {
+        const { authentication } = response;
+        if (authentication?.accessToken) {
+          console.log('Access Token:', authentication.accessToken);
+          navigation.navigate('Color'); // Navega a la pantalla 'Color'
+        } else {
+          Alert.alert('Error', "No se pudo obtener el token de acceso.");
+        }
+      } else if (response?.type === 'dismiss') {
         navigation.navigate('Color');
       }
-      console.log('data',response)
-      navigation.navigate('Color');
+      console.log('data', response);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       Alert.alert('Error', "Error no esperado");
     }
-  }
+  };
 
   useEffect(() => {
     handleToken();
